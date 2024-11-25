@@ -1,6 +1,6 @@
 nasm -f win64 MP2.asm
-gcc -c MP2.c -o MP2.obj -m64
-gcc MP2.obj MP2.obj -o MP2.exe -m64
+gcc -c MP2.c -o MP2c.obj -m64
+gcc MP2c.obj MP2.obj -o MP2.exe -m64
 MP2.exe
 3 4
 0.25 0.35 0.45 0.33
