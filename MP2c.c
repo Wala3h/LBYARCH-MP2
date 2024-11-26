@@ -1,3 +1,6 @@
+// GROUP #4
+// Members: HERCE, DOMINIC MARCUS REYES & TAN, PETER BENJAMIN ALELIGAY
+
 #include <stdio.h>
 #include <stdlib.h>
 
