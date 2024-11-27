@@ -13,12 +13,13 @@ int main(){
 	printf("Input 2 ints (row, col): ");
 	scanf("%d %d", &row, &col);
 	printf("\n");
-   printf("%d %d\n", row, col);
+	printf("%d %d\n", row, col);
 	printf("Input matrix values (per row): \n");
 	int n = row*col;
-	float* floatVec= (float*)malloc(n*sizeof(float));
+	float* floatVec= (float*)malloc(n*sizeof(float)); // allocate memory based on the size of n (rows x columns)
 	int* intVec = (int*)malloc(n*sizeof(int));
-	// start time counting (processing focused, eliminates input delay)
+	
+	// read inputs and display pre-processed data
 	int i = 0;
 	for (i; i < row; i++){
 		int j = 0;
@@ -30,10 +31,19 @@ int main(){
 	}
 	printf("\n");
 	
-	clock_t begin = clock();
-	imgCvtGrayDoubleToInt(n, floatVec, intVec);
-	clock_t end = clock();
-	// print output
+	// testing average runtime of the imgCvtGrayDoubleToInt function
+	double sumTime = 0; // sum for getting average runtime
+	int tests = 30;		// initialize number of tests 
+	for(i=0; i < tests; i++){
+		clock_t begin = clock();	
+		imgCvtGrayDoubleToInt(n, floatVec, intVec);
+		clock_t end = clock();
+		double execTime = ((double)(end-begin) / CLOCKS_PER_SEC) * 1000; // calculate runtime in milliseconds
+		sumTime = sumTime + execTime;
+	}
+	
+	// print output of processed data
+	printf("output matrix:\n");
 	int x = 0;
 	for (x; x < row; x++){
 		int y = 0;
@@ -43,9 +53,9 @@ int main(){
 		}
 		printf("\n");
 	}
-	// clock_t end = clock();
 	
-	double execTime = (double)(end-begin) / CLOCKS_PER_SEC;
-	printf("\nProcessing time (in seconds): %f", execTime);
+	// average runtime = sum of runtimes / number of tests
+	printf("\nAverage Processing time (in milliseconds): %f\n", sumTime/tests); 
+	
    return 0;
 }
