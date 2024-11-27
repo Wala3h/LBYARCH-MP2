@@ -2,18 +2,17 @@
 
 ## imgCvtGrayDoubleToInt Function performance
 
-In checking the performance of the function, we made use of the Clock function from the time.h library of C.
-The function call is wrapped between two declarations making use of the clock_t data type, begin and end (excludes the print loop time). 
+In checking the performance of the function, we made use of the Clock function from the time.h library of C
+Below is the code snippet for calculating and printing the average execution time in Seconds:
 ```
-	clock_t begin = clock();
-	imgCvtGrayDoubleToInt(n, floatVec, intVec);
-	clock_t end = clock();
-```
-
-Below is the code snippet for calculating and printing the execution time in Seconds:
-```
-	double execTime = (double)(end-begin) / CLOCKS_PER_SEC;
-	printf("\nProcessing time (in seconds): %f", execTime);
+	int tests = 30;		// initialize number of tests 
+	for(i=0; i < tests; i++){
+		clock_t begin = clock();	
+		imgCvtGrayDoubleToInt(n, floatVec, intVec);
+		clock_t end = clock();
+		double execTime = ((double)(end-begin) / CLOCKS_PER_SEC) * 1000; // calculate runtime in milliseconds
+		sumTime = sumTime + execTime;
+	}
 ```
 ## Execution time and average of different input sizes
 In order to create the matrices for different input sizes, we made use of the RANDARRAY() function in Google Sheets, specifying the range to be 0-1. 
