@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdint.h>
 
 
-extern void imgCvtGrayDoubleToInt(int n, float* floatVec, int* intVec);	
+extern void imgCvtGrayDoubleToInt(int n, double* doubleVec, uint8_t* intVec);	
 
 int main(){
 	int row, col;
@@ -16,16 +17,16 @@ int main(){
 	printf("%d %d\n", row, col);
 	printf("Input matrix values (per row): \n");
 	int n = row*col;
-	float* floatVec= (float*)malloc(n*sizeof(float)); // allocate memory based on the size of n (rows x columns)
-	int* intVec = (int*)malloc(n*sizeof(int));
+	double* doubleVec= (double*)malloc(n*sizeof(double)); // allocate memory based on the size of n (rows x columns)
+	uint8_t* intVec = (uint8_t*)malloc(n*sizeof(uint8_t));
 	
 	// read inputs and display pre-processed data
 	int i = 0;
 	for (i; i < row; i++){
 		int j = 0;
 		for (j; j < col; j++) {
-			scanf("%f", &floatVec[i*col+j]);
-			printf("%.2f ", floatVec[i*col+j]);
+			scanf("%lf", &doubleVec[i*col+j]);
+			printf("%.2lf ", doubleVec[i*col+j]);
 		}
 		printf("\n");
 	}
@@ -36,9 +37,9 @@ int main(){
 	int tests = 30;		// initialize number of tests 
 	for(i=0; i < tests; i++){
 		clock_t begin = clock();	
-		imgCvtGrayDoubleToInt(n, floatVec, intVec);
+		imgCvtGrayDoubleToInt(n, doubleVec, intVec);
 		clock_t end = clock();
-		double execTime = ((double)(end-begin) / CLOCKS_PER_SEC) * 1000; // calculate runtime in milliseconds
+		double execTime = ((double)(end-begin) / CLOCKS_PER_SEC) * 1000000000; // calculate runtime in milliseconds
 		sumTime = sumTime + execTime;
 	}
 	
@@ -55,7 +56,7 @@ int main(){
 	}
 	
 	// average runtime = sum of runtimes / number of tests
-	printf("\nAverage Processing time (in milliseconds): %f\n", sumTime/tests); 
+	printf("\nAverage Processing time (in milliseconds): %lf\n", sumTime/tests); 
 	
    return 0;
 }
